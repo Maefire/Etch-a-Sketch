@@ -1,0 +1,15 @@
+*,
+*::before,
+*::after{
+    box-sizing: border-box;    
+}
+
+#menu{
+    display: flex;
+    flex-flow: column;
+    width: 50px;
+    gap: 10px;
+    justify-content: center;
+    align-items: flex-start;
+    
+}

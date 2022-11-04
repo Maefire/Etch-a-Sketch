@@ -24,6 +24,12 @@ main{
     width: 300px;
     height: 300px;
 }
+.gridSquare{
+    border: 1px solid green;
+}
+.gridSquare:hover{
+    background-color: black;
+}
 #menu{
     display: flex;
     flex-flow: column;

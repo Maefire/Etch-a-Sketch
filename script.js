@@ -5,7 +5,10 @@ const resetBtn       = document.getElementById("resetButton");
 const sliderSizeText = document.getElementById("sliderText");
 const gridSlider     = document.getElementById("gridSlider");
 const currentColor   = document.getElementsByClassName("penColor");
-//TODO let penColor = e.target.value? Have pen color update on click?
+//TODO let penColor  = e.target.value? Have pen color update on click?
+const menuItems      = document.getElementById("menu");
+const eraserBtn      = document.getElementById("eraserButton");
+const drawBtn        = document.getElementById("penButton");
 
 
 
@@ -13,9 +16,9 @@ const currentColor   = document.getElementsByClassName("penColor");
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~MENU RELATED~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-resetBtn.addEventListener("click",() =>{
+resetBtn.onclick = (e) =>{
     window.location.reload();
-});
+}
 
 gridSlider.onmousemove = function(e) {updateSliderText(e.target.value);}
 
@@ -23,7 +26,15 @@ function updateSliderText(size) {
     sliderSizeText.innerText = `${size}x${size}`;
 }
 
-
+//button function time! :D
+eraserBtn.onclick = (e) =>{
+    eraseItNerd();
+    stayInsideYourBox();
+}
+drawBtn.onclick = (e) =>{
+    drawItNerd();
+    stayInsideYourBox();
+}
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~GRID RELATED~~~~~~~~~~~~~~~~~~~~~~~~*/
@@ -44,30 +55,61 @@ function grid(cellSize){
         wrapper.appendChild(gridCell);
     }
 }
-
-
-wrapper.onmouseover = (e) =>{
-    wrapper.onmouseup = (e) =>{
-        if(toggleState !== true){
-            toggleState = true;
-            return;
-        }else{
-            toggleState = false;
-        }
+function stayInsideYourBox(){
+    menu.onmouseleave = (e) =>{
+        toggleState = false;
+        return;
     }
-    if(toggleState === true){
-        if(e.target && e.target.matches("div.cell")){
-            // console.log(e.target)
-            e.target.classList.add("penColor");
-          }
-    }    
+}
+function drawItNerd(){
+    wrapper.onmouseover = (e) =>{
+        wrapper.onmouseup = (e) =>{
+            if(toggleState !== true){
+                toggleState = true;
+                return;
+            }else{
+                toggleState = false;
+            }
+        }
+        if(toggleState === true){
+            if(e.target && e.target.matches("div.cell")){
+                // console.log(e.target)
+                e.target.classList.add("penColor");
+              }
+        }    
+    }
+}
+
+function eraseItNerd(){
+    wrapper.onmouseover = (e) =>{
+        wrapper.onmouseup = (e) =>{
+            if(toggleState !== true){
+                toggleState = true;
+                return;
+            }else{
+                toggleState = false;
+            }
+        }
+        if(toggleState === true){
+            if(e.target && e.target.matches("div.cell")){
+                // console.log(e.target)
+                e.target.classList.remove("penColor");
+              }
+        }    
+    }
 }
 do{
     grid(16);
     gridReset = false;
 } while (gridReset === true);
 
-//TODO Add function to buttons. Reset button. 
+/*TODO Add function to buttons.
+BUTTONS: 
+reset
+eraser
+darken
+color picker? 
+Night mode?*/
 /* toggle: add current color for selection (let currentColor = [])
 then add a class of "draw" on toggle to all grid divs 
 if class of draw exists, mouseover event fires.

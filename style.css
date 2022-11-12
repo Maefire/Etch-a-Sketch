@@ -18,23 +18,32 @@ main{
     gap: 400px;
     border: 2px solid blue;
 }
-.wrapper{
+.classWrapper{
     display: grid;
     border: 2px solid red;
-    width: 300px;
-    height: 300px;
+    width: 800px;
+    height: 600px;
 }
-.gridSquare{
+.cell{
     border: 1px solid green;
 }
-.gridSquare:hover{
+/* .penColor{
     background-color: black;
-}
+} */
 #menu{
     display: flex;
     flex-flow: column;
-    width: 50px;
-    gap: 10px;
-    justify-content: center;
-    align-items: flex-start;
+    width: 10em;
+    gap: 1.5em;
+    align-items:center;
+    border: 2px solid red;
+}
+input[type=color] {
+    visibility: hidden;
+}
+label {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px; 
+  display:inline-block;
 }

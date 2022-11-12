@@ -1,15 +1,19 @@
-let gridReset        = false;
 let toggleState      = "";
+let penColor         = "#000000";// pencolor is black (Nov 11,2022)
+let eraser           = false;
 const wrapper        = document.getElementById("wrapper");
 const resetBtn       = document.getElementById("resetButton");
 const sliderSizeText = document.getElementById("sliderText");
 const gridSlider     = document.getElementById("gridSlider");
-const currentColor   = document.getElementsByClassName("penColor");
-//TODO let penColor  = e.target.value? Have pen color update on click?
 const menuItems      = document.getElementById("menu");
 const eraserBtn      = document.getElementById("eraserButton");
 const drawBtn        = document.getElementById("penButton");
+const colorPicker    = document.getElementById("colorPicker");
+const colorLabel     = document.getElementById("colorLabel");
 
+
+drawItNerd();
+grid(5);
 
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -28,19 +32,43 @@ function updateSliderText(size) {
 
 //button function time! :D
 eraserBtn.onclick = (e) =>{
+    eraser = true;
     eraseItNerd();
     stayInsideYourBox();
 }
 drawBtn.onclick = (e) =>{
+    eraser = false;
     drawItNerd();
     stayInsideYourBox();
 }
+
+function setPenColor(e){
+    if(eraser === false){
+        penColor = colorPicker.value;
+    }else{
+        penColor = "#FFFFFF"
+    }
+}
+function setCellColor(e){
+    if(eraser === false){
+        e.target.style.backgroundColor = penColor;
+    }else{
+        e.target.style.backgroundColor = "#FFFFFF";
+    }
+    
+}
+
+colorPicker.onchange = (e) => {
+    colorLabel.style.backgroundColor = colorPicker.value   
+}
+
+
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~GRID RELATED~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 gridSlider.addEventListener("pointerup", () => {
-  wrapper.textContent=""
+  wrapper.textContent="" //Clears the grid for new set of cells/divs
   if(wrapper.textContent == ""){
     gridSlider.onmouseup = function(e){grid(e.target.value);}
   }
@@ -52,7 +80,7 @@ function grid(cellSize){
     for(let i=0; i<(cellSize * cellSize);i++){
         const gridCell = document.createElement("div");
         gridCell.classList.add("cell");
-        wrapper.appendChild(gridCell);
+        wrapper.appendChild(gridCell);      
     }
 }
 function stayInsideYourBox(){
@@ -63,7 +91,7 @@ function stayInsideYourBox(){
 }
 function drawItNerd(){
     wrapper.onmouseover = (e) =>{
-        wrapper.onmouseup = (e) =>{
+        wrapper.onmousedown = (e) =>{
             if(toggleState !== true){
                 toggleState = true;
                 return;
@@ -72,9 +100,9 @@ function drawItNerd(){
             }
         }
         if(toggleState === true){
-            if(e.target && e.target.matches("div.cell")){
-                // console.log(e.target)
-                e.target.classList.add("penColor");
+            if(e.target && e.target.matches("div.cell")){                          
+                setCellColor(e);
+                setPenColor(e)
               }
         }    
     }
@@ -82,7 +110,7 @@ function drawItNerd(){
 
 function eraseItNerd(){
     wrapper.onmouseover = (e) =>{
-        wrapper.onmouseup = (e) =>{
+        wrapper.onmousedown = (e) =>{
             if(toggleState !== true){
                 toggleState = true;
                 return;
@@ -93,15 +121,13 @@ function eraseItNerd(){
         if(toggleState === true){
             if(e.target && e.target.matches("div.cell")){
                 // console.log(e.target)
-                e.target.classList.remove("penColor");
+                setPenColor(e);
+                setCellColor(e);
               }
         }    
     }
 }
-do{
-    grid(16);
-    gridReset = false;
-} while (gridReset === true);
+
 
 /*TODO Add function to buttons.
 BUTTONS: 

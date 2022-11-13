@@ -90,7 +90,7 @@ function stayInsideYourBox(){
     }
 }
 function drawItNerd(){
-    wrapper.onmouseover = (e) =>{
+    wrapper.onmousemove = (e) =>{
         wrapper.onmousedown = (e) =>{
             if(toggleState !== true){
                 toggleState = true;
@@ -102,14 +102,14 @@ function drawItNerd(){
         if(toggleState === true){
             if(e.target && e.target.matches("div.cell")){                          
                 setCellColor(e);
-                setPenColor(e)
+                setPenColor(e);
               }
         }    
     }
 }
 
 function eraseItNerd(){
-    wrapper.onmouseover = (e) =>{
+    wrapper.onmousemove = (e) =>{
         wrapper.onmousedown = (e) =>{
             if(toggleState !== true){
                 toggleState = true;
@@ -131,12 +131,5 @@ function eraseItNerd(){
 
 /*TODO Add function to buttons.
 BUTTONS: 
-reset
-eraser
 darken
-color picker? 
 Night mode?*/
-/* toggle: add current color for selection (let currentColor = [])
-then add a class of "draw" on toggle to all grid divs 
-if class of draw exists, mouseover event fires.
-on toggle/click remove class of draw, disabling mouseover event from firing*/

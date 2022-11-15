@@ -1,6 +1,8 @@
-let toggleState      = "";
-let penColor         = "#000000";// pencolor is black (Nov 11,2022)
+let toggleDrawState      = "";
+let penColor         = "#000000";// pencolor default is black (Nov 11,2022)
 let eraser           = false;
+/* let shader           = false;
+const shadeBtn       = document.getElementById("shadeButton"); */
 const wrapper        = document.getElementById("wrapper");
 const resetBtn       = document.getElementById("resetButton");
 const sliderSizeText = document.getElementById("sliderText");
@@ -13,16 +15,13 @@ const colorLabel     = document.getElementById("colorLabel");
 
 
 drawItNerd();
-grid(5);
+grid(16);
 
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~MENU RELATED~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-resetBtn.onclick = (e) =>{
-    window.location.reload();
-}
 
 gridSlider.onmousemove = function(e) {updateSliderText(e.target.value);}
 
@@ -30,17 +29,22 @@ function updateSliderText(size) {
     sliderSizeText.innerText = `${size}x${size}`;
 }
 
+resetBtn.onclick = () =>{
+    window.location.reload();
+}
 //button function time! :D
-eraserBtn.onclick = (e) =>{
+eraserBtn.onclick = () =>{
     eraser = true;
-    eraseItNerd();
+    drawItNerd();
     stayInsideYourBox();
 }
-drawBtn.onclick = (e) =>{
+drawBtn.onclick = () =>{
     eraser = false;
     drawItNerd();
     stayInsideYourBox();
 }
+
+
 
 function setPenColor(e){
     if(eraser === false){
@@ -58,7 +62,7 @@ function setCellColor(e){
     
 }
 
-colorPicker.onchange = (e) => {
+colorPicker.onchange = () => {
     colorLabel.style.backgroundColor = colorPicker.value   
 }
 
@@ -85,51 +89,53 @@ function grid(cellSize){
 }
 function stayInsideYourBox(){
     menu.onmouseleave = (e) =>{
-        toggleState = false;
+        toggleDrawState = false;
         return;
     }
 }
 function drawItNerd(){
     wrapper.onmousemove = (e) =>{
         wrapper.onmousedown = (e) =>{
-            if(toggleState !== true){
-                toggleState = true;
+            if(toggleDrawState !== true){
+                toggleDrawState = true;
                 return;
             }else{
-                toggleState = false;
+                toggleDrawState = false;
             }
         }
-        if(toggleState === true){
+        if(toggleDrawState === true){
             if(e.target && e.target.matches("div.cell")){                          
                 setCellColor(e);
                 setPenColor(e);
+                // setShade(e);
               }
         }    
     }
 }
 
-function eraseItNerd(){
-    wrapper.onmousemove = (e) =>{
-        wrapper.onmousedown = (e) =>{
-            if(toggleState !== true){
-                toggleState = true;
-                return;
-            }else{
-                toggleState = false;
-            }
-        }
-        if(toggleState === true){
-            if(e.target && e.target.matches("div.cell")){
-                // console.log(e.target)
-                setPenColor(e);
-                setCellColor(e);
-              }
-        }    
-    }
-}
+
 
 
 /*TODO Add function to buttons.
 BUTTONS: 
 darken
 Night mode?*/
+
+
+/* shadeBtn.onclick = () =>{
+    eraser = false;
+    shader = true;
+    drawItNerd();
+    stayInsideYourBox();
+    setShade();
+}
+
+function setShade(e){
+    //if element has class ".shader", run this code
+    if(eraser === false && shader === true){
+        for(let i = 100; i > 0; i -= 10){
+            cell.style.filter = "brightness(100%)"
+
+        }
+    } 
+} */

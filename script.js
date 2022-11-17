@@ -110,13 +110,13 @@ function shadeIt() {
     gridChildren.forEach((child) =>{
         const cellCh = child;
         cellCh.count = 0;
-        cellCh.addEventListener("mouseenter", (e) =>{
+        cellCh.onmousemove = (e) =>{
             if(toggleDrawState === true && shader === true){                        
-                    setPenColor(e);               
+                    setPenColor();               
                     setCellColor(e)
                     e.target.count += 1;
-                    e.target.style.opacity = 0.1 * e.target.count;                
+                    e.target.style.opacity = 0.01 * e.target.count;                
             }
-        });
+        };
     });    
 }

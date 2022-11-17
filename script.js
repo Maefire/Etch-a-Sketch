@@ -1,5 +1,4 @@
 let toggleDrawState      = "";
-let penColor         = "#B3B3B3";// pencolor default is black (Nov 11,2022)
 let eraser           = false;
 let shader           = false;
 const shadeBtn       = document.getElementById("shadeButton"); 

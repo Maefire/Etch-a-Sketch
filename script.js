@@ -1,4 +1,9 @@
-let toggleDrawState      = "";
+//add function to shade button to toggle lightening on a button press?
+//In theory, should need to simply reverse shader to be false. Might need to add a class
+    //to keep the mode selected? Maybe a new boolean for "deShade", so when you press a certain
+    //button, it toggles the boolean, saving space on the visible page. 
+
+let toggleDrawState  = "";
 let eraser           = false;
 let shader           = false;
 const shadeBtn       = document.getElementById("shadeButton"); 
@@ -100,6 +105,7 @@ function drawItNerd(){
             if(e.target && e.target.matches("div.cell")){                          
                 setPenColor(e);                
                 setCellColor(e);
+                e.target.style.opacity = 1.0;
             }
         }
     }
@@ -113,7 +119,7 @@ function shadeIt() {
         cellCh.onmousemove = (e) =>{
             if(toggleDrawState === true && shader === true){                        
                     setPenColor();               
-                    setCellColor(e)
+                    setCellColor(e);
                     e.target.count += 1;
                     e.target.style.opacity = 0.01 * e.target.count;                
             }

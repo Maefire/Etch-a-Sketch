@@ -3,7 +3,7 @@
     //to keep the mode selected? Maybe a new boolean for "deShade", so when you press a certain
     //button, it toggles the boolean, saving space on the visible page. 
 
-let toggleDrawState  = "";
+let toggleDrawState  = false;
 let eraser           = false;
 let shader           = false;
 const shadeBtn       = document.getElementById("shadeButton"); 
@@ -17,8 +17,22 @@ const drawBtn        = document.getElementById("penButton");
 const colorPicker    = document.getElementById("colorPicker");
 const colorLabel     = document.getElementById("colorLabel");
 
-drawItNerd();// Draws the actual grid.
+// Draws the actual grid.
+wrapper.onmousemove = (e) => {
+    wrapper.onmousedown = () => {
+        toggleDrawState = !toggleDrawState;                
+        }
+    if(toggleDrawState === true && shader === false){
+        if(e.target && e.target.matches("div.cell")){                          
+            setPenColor(e);                
+            setCellColor(e);
+            e.target.style.opacity = 1.0;
+        }
+    }
+}
+
 grid(16);// Default grid size (slider set in HTML currently 11-17-2022)
+
 /*vvv Mostly Menu/Button Related vvv*/
 gridSlider.onmousemove = function(e) {updateSliderText(e.target.value);}
 
@@ -26,37 +40,42 @@ function updateSliderText(size) {
     sliderSizeText.innerText = `${size}x${size}`;
 }
 
-resetBtn.onclick = () =>{
+resetBtn.onclick = () => {
     window.location.reload();
 }
-//button function time! :D
-eraserBtn.onclick = () =>{
-    eraser = true;
-    shader = false;
-    drawItNerd();
-    stayInsideYourBox();
+
+menu.onmouseleave = () => {
+    toggleDrawState = false;
+    return;
 }
-drawBtn.onclick = () =>{
+
+//button function time! :D
+eraserBtn.onclick = () => {
+    eraser = true;
+    shader = false; 
+}
+
+drawBtn.onclick = () => {
     eraser = false;
     shader = false;
-    drawItNerd();
-    stayInsideYourBox();
 }
-shadeBtn.onclick = () =>{
+
+shadeBtn.onclick = () => {
     eraser = false;
     shader = true;
     shadeIt();
-    stayInsideYourBox();
     console.log("Button Clicked")
 }
-function setPenColor(){
+
+function setPenColor() {
     if(eraser === false){
         penColor = colorPicker.value;
     }else{
         penColor = "#B3B3B3"
     }
 }
-function setCellColor(e){
+
+function setCellColor(e) {
     if(eraser === false && shader === false){
         e.target.style.backgroundColor = penColor;  
     }else if(eraser === false && shader === true){
@@ -65,16 +84,20 @@ function setCellColor(e){
         e.target.style.backgroundColor = "#FFFFFF";
     }
 }
+
 colorPicker.onchange = () => {
     colorLabel.style.backgroundColor = colorPicker.value   
 }
+
 /*vvv Mostly Grid Related vvv*/
 gridSlider.addEventListener("pointerup", () => {
-  wrapper.textContent="" //Clears the grid for new set of cells/divs
-  if(wrapper.textContent == ""){
-    gridSlider.onmouseup = function(e){grid(e.target.value);}
-  }
+    wrapper.textContent="" //Clears the grid for new set of cells/divs
+    if(wrapper.textContent == ""){
+    gridSlider.onmouseup = function(e){
+        grid(e.target.value);}
+    }
 });
+
 function grid(cellSize){
     wrapper.style.gridTemplateColumns = `repeat(${cellSize}, 1fr)`; 
     wrapper.style.gridTemplateRows = `repeat(${cellSize}, 1fr)`;
@@ -85,34 +108,9 @@ function grid(cellSize){
         wrapper.appendChild(gridCell);      
     }
 }
-function stayInsideYourBox(){
-    menu.onmouseleave = () =>{
-        toggleDrawState = false;
-        return;
-    }
-}
-function drawItNerd(){
-    wrapper.onmousemove = (e) =>{
-        wrapper.onmousedown = () =>{
-            if(toggleDrawState !== true){
-                toggleDrawState = true;
-                return;
-            }else{
-                toggleDrawState = false;
-            }
-        }
-        if(toggleDrawState === true && shader === false){
-            if(e.target && e.target.matches("div.cell")){                          
-                setPenColor(e);                
-                setCellColor(e);
-                e.target.style.opacity = 1.0;
-            }
-        }
-    }
-}
+
 function shadeIt() {
     const gridChildren = document.querySelectorAll(".cell");
-
     gridChildren.forEach((child) =>{
         const cellCh = child;
         cellCh.count = 0;
@@ -124,5 +122,5 @@ function shadeIt() {
                     e.target.style.opacity = 0.01 * e.target.count;                
             }
         };
-    });    
+    });
 }

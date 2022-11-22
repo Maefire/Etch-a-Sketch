@@ -69,7 +69,7 @@ shadeBtn.onclick = () => {
     console.log("Button Clicked")
 }
 
-themeToggle.onclick = (controlHandler);
+themeToggle.onclick = (themeHandler);
 
 function setPenColor() {
     if(eraser === false){
@@ -130,12 +130,12 @@ function shadeIt() {
 }
 
   //Control Handler
-function controlHandler(){
+function themeHandler(){
     document.body.classList.toggle("dark");
     if (document.body.classList.contains("dark")) {
-      controller.textContent = "Light Mode";
+      themeToggle.textContent = "Light Mode";
     } else {
-      controller.textContent = "Dark Mode";
+      themeToggle.textContent = "Dark Mode";
     }
 };
   

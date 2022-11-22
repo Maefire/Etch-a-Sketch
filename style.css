@@ -6,9 +6,16 @@
     padding: 0;    
 }
 
+body{
+    background: #000000;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    margin: 0;
+    transition: .25s ease-in-out;
+}
 
 .titleHeader{
     text-align: center;
+    color: rgba(255, 255, 255, 0.9);
 }
 
 main{
@@ -29,25 +36,35 @@ main{
 }
 
 .classWrapper{
-    background-color: white;
+    background-color: rgb(167, 167, 167);
     display: grid;
     width: 700px;
     height: 700px;   
     margin-top: 2em; 
-
+    border: 5px solid rgb(80, 80, 80);
+    border-radius: 10px;
 }
 
-.cell{
+.cell {
     border: 2px solid #00000015;
 }
 
-#menu{
+#menu {
+    background-color: rgb(167, 167, 167);
     display: flex;
-    flex-flow: column;
+    flex-direction: column;
     width: 10em;
     gap: 1.5em;
     align-items:center;
-    /* border: 2px solid red; */
+    border: 5px solid rgb(80, 80, 80);
+}
+.menu-box::before {
+    content: "Menu";
+    display: flex;
+    flex-direction: column;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 3rem;
+    text-align: center;
 }
 
 input[type=color] {
@@ -55,11 +72,50 @@ input[type=color] {
 }
 
 label {
-  border-radius: 50%;
-  width: 50px;
-  height: 50px; 
-  display:inline-block;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px; 
+    display:inline-block;
 }
+
+.themeToggle {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.9);
+    width: 80px;
+    padding: 10px 5px;
+    position: absolute;
+    font-size: 1em;
+    font-weight: 700;
+    word-wrap: break-word;
+    border-radius: 100%;
+    border: solid 3px rgba(255, 255, 255, 0.9);
+    cursor: pointer;
+    transition: .25s ease-in-out;
+    z-index:10;
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.9);
+	text-shadow: 2px 2px 2px rgb(0, 225, 255);
+}
+
+body.dark {
+    background: rgba(208, 208, 208, 0.9);
+}
+
+body.dark .themeToggle{
+    color: rgba(0, 0, 0, 0.9);
+    border-color: rgba(0, 0, 0, 0.9);
+    -webkit-text-stroke: 1px rgba(0, 0, 0, 0.9);
+	text-shadow: 2px 2px 2px rgb(255, 67, 67);
+}
+
+body.dark .titleHeader{
+    color: rgba(0, 0, 0, 0.9);
+    border-color: rgba(0, 0, 0, 0.9);
+}
+
+body.dark .menu-box::before{
+    color: rgba(0, 0, 0, 0.9);
+}
+
 /*MEDIA QUERIES*/
 @media (max-width: 1300px) {
     .classWrapper{
@@ -99,4 +155,10 @@ label {
         width: 350px;
         margin-top: -1.7em;
     }
+
+    .menu-box::before {
+        font-size: 2rem;
+        margin-top: -20px;
+    }
+    
 }

@@ -129,7 +129,6 @@ function shadeIt() {
     });
 }
 
-  //Control Handler
 function themeHandler(){
     document.body.classList.toggle("dark");
     if (document.body.classList.contains("dark")) {
@@ -138,8 +137,3 @@ function themeHandler(){
       themeToggle.textContent = "Dark Mode";
     }
 };
-  
-  // Control Trigger
-
-
-  

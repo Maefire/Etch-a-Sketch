@@ -75,7 +75,7 @@ function setPenColor() {
     if(eraser === false){
         penColor = colorPicker.value;
     }else{
-        penColor = "#B3B3B3"
+        penColor = "#A7A7A7"
     }
 }
 
@@ -85,7 +85,7 @@ function setCellColor(e) {
     }else if(eraser === false && shader === true){
         e.target.style.backgroundColor = penColor;
     }else{    
-        e.target.style.backgroundColor = "#FFFFFF";
+        e.target.style.backgroundColor = "#A7A7A7";
     }
 }
 

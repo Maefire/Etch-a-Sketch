@@ -1,45 +1,66 @@
 *,
 *::before,
-*::after{
+*::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;    
 }
 
-body{
+body {
     background: #000000;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     margin: 0;
     transition: .25s ease-in-out;
 }
 
-.titleHeader{
+.footer{
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 900;
+    padding: 1em;
+    font-style: oblique;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+#menu, .tool, .titleHeader{
+    user-select: none;
+}
+
+.titleHeader {
     text-align: center;
     color: rgba(255, 255, 255, 0.9);
     margin-bottom: .5em;
+    font-size: 48px;
+    -webkit-text-stroke: 1px rgba(54, 54, 54, 0.9);
+    text-shadow: 1px 3px 4px rgb(10, 255, 202);
 }
 
-
-
-main{
+main {
     display:flex;
     align-items: center;
-    justify-content: space-evenly;    
+    justify-content: flex-end;    
     max-width: 1700px;
     margin: 0 auto;
     gap: 200px;
     /* border: 2px solid blue; */
 }
 
-.tool{
+.tool {
     margin-bottom: -.5em;
     text-align: center;
     color: red;
     font-weight: bold;
     font-size: larger;
+    font-size: 24px;
+    text-shadow: 2px 2px 5px rgb(255, 59, 59);
 }
 
-.classWrapper{
+.classWrapper {
     background-color: rgb(167, 167, 167);
     display: grid;
     width: 700px;
@@ -53,7 +74,7 @@ main{
     border: 2px solid #00000015;
 }
 
-button{
+button {
 	color: rgba(0, 0, 0, 0.9);
 	border:outset;
     margin-top: 10px;
@@ -63,13 +84,17 @@ button{
 	cursor: pointer;
 }
 
-button:active{
-    /* background-color: seagreen; */
-    box-shadow: 4px 4px 60px rgba(255, 255, 255, 0.9) inset, 
-            4px 4px 10px seagreen, 
-            -4px -4px 10px seagreen,
-            -4px 4px 10px seagreen,
-            4px -4px 10px seagreen;
+button:active {
+    -webkit-text-stroke: 1px rgba(54, 54, 54, 0.9);
+    text-shadow: 1px 3px 4px rgb(10, 255, 202);
+}
+
+button:focus {
+    background-color: rgb(36, 187, 22);
+    box-shadow: 3px 3px 9px rgba(255, 255, 255, 0.9) inset,  
+            -4px -4px 5px rgb(22, 100, 22) inset,
+            1px 1px 30px 20px rgb(23, 117, 39) inset,
+            4px -4px 10px rgb(46, 139, 87) inset;
 }
 
 #menu {
@@ -80,7 +105,11 @@ button:active{
     gap: 1em;
     flex-wrap: wrap;
     align-items:center;
-    border: 5px solid rgba(208, 208, 208, 0.9)
+    border: 5px solid rgba(208, 208, 208, 0.9);
+}
+
+.menu-box {
+  margin-left: 10em;
 }
 
 .menu-box::before {
@@ -90,6 +119,8 @@ button:active{
     color: rgba(255, 255, 255, 0.9);
     font-size: 3rem;
     text-align: center;
+    -webkit-text-stroke: 1px rgba(54, 54, 54, 0.9);
+    text-shadow: 1px 3px 4px rgb(10, 255, 202);
 }
 
 input[type=color] {
@@ -114,8 +145,9 @@ label {
     border-radius: 100%;
     border: solid 3px rgba(255, 255, 255, 0.9);
     cursor: pointer;
+    margin-bottom: 6px;
+    margin-top: -8px;
     transition: .25s ease-in-out;
-    z-index:10;
     -webkit-text-stroke: 1px rgba(255, 255, 255, 0.9);
 	text-shadow: 2px 2px 2px rgb(0, 225, 255);
 }
@@ -124,27 +156,32 @@ body.dark {
     background: rgba(208, 208, 208, 0.9);
 }
 
-body.dark .themeToggle{
+body.dark .themeToggle {
     color: rgba(0, 0, 0, 0.9);
     border-color: rgba(0, 0, 0, 0.9);
     -webkit-text-stroke: 1px rgba(0, 0, 0, 0.9);
 	text-shadow: 2px 2px 2px rgb(255, 67, 67);
 }
 
-body.dark .titleHeader{
+body.dark .titleHeader {
     color: rgba(0, 0, 0, 0.9);
     border-color: rgba(0, 0, 0, 0.9);
 }
-body.dark #menu{
+
+body.dark .footer{
+    color: rgba(0, 0, 0, 0.9);
+}
+
+body.dark #menu {
     background-color: rgb(167, 167, 167);
     border-color: rgb(80, 80, 80);
 }
 
-body.dark .menu-box::before{
+body.dark .menu-box::before {
     color: rgba(0, 0, 0, 0.9);
 }
 
-body.dark button{
+body.dark button {
 	background: rgba(0, 0, 0, 0.9);
 	color: rgba(255, 255, 255, 0.9);
 	border:outset;
@@ -161,6 +198,11 @@ body.dark button{
     main{
         gap: 20%;
     }
+    .footer{
+        padding: .2em;
+        font-size: 1em;
+        justify-content: flex-end;
+    }
 }
   
 @media (max-width: 860px) {
@@ -173,6 +215,9 @@ body.dark button{
         height: 500px;
         width: 500px;
     }
+    .footer{
+        justify-content: center;
+    }
     button {
         padding: .5em;
         font-size: 1.3em;
@@ -183,6 +228,12 @@ body.dark button{
 @media (max-width: 650px) {
     .titleHeader{
         margin-bottom: .2em;
+        font-size: 30px;
+    }
+    .footer{
+        padding: .2em;
+        font-size: 1em;
+        width:30%;
     }
     main {
         flex-direction: column;
@@ -203,10 +254,11 @@ body.dark button{
         width: 350px;
         margin-top: -1.8em;
     }
-
+    .menu-box{
+        margin-left: 0em;
+    }
     .menu-box::before {
-        font-size: 2rem;
+        font-size: 1.9em;
         margin-top: -20px;
     }
-    
 }
